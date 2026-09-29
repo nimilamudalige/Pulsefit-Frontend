@@ -71,5 +71,5 @@ repo's GitHub "About" description to include the **live Cloud Run URL**.
 
 - **Student Name:** Pasan Nimila
 - **Student Number:** 2301692034
-- **Slack Handle:** pasan_nimila (optional)
+- **Slack Handle:** pasan_nimila
 - **GCP Project ID:** pulsefit-capstone
