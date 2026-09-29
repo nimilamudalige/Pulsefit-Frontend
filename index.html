@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PulseFit — Gym &amp; Class Booking</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">PulseFit</span>
+      <span class="brand-sub">gym &amp; class booking platform</span>
+    </div>
+    <div class="gateway-status" id="gatewayStatus">checking gateway…</div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="members">Members</button>
+    <button class="tab" data-tab="classes">Classes</button>
+    <button class="tab" data-tab="bookings">Bookings</button>
+  </nav>
+
+  <main>
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- MEMBERS -->
+    <section class="panel active" id="panel-members">
+      <div class="panel-grid">
+        <form id="memberForm" class="card form-card">
+          <h2>Add member</h2>
+          <label>Full name<input type="text" name="fullName" required /></label>
+          <label>Email<input type="email" name="email" required /></label>
+          <label>Phone<input type="text" name="phone" /></label>
+          <label>Membership plan
+            <select name="membershipPlan" required>
+              <option value="BASIC">Basic</option>
+              <option value="STANDARD">Standard</option>
+              <option value="PREMIUM">Premium</option>
+            </select>
+          </label>
+          <label>Join date<input type="date" name="joinDate" /></label>
+          <button type="submit">Add member</button>
+        </form>
+
+        <div class="card list-card">
+          <div class="list-head">
+            <h2>Members</h2>
+            <button class="ghost" id="refreshMembers">Refresh</button>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Photo</th><th>Name</th><th>Email</th><th>Plan</th><th>Joined</th><th></th></tr>
+            </thead>
+            <tbody id="membersBody"><tr><td colspan="6" class="empty">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLASSES -->
+    <section class="panel" id="panel-classes">
+      <div class="panel-grid">
+        <form id="classForm" class="card form-card">
+          <h2>Add class</h2>
+          <label>Class name<input type="text" name="className" required /></label>
+          <label>Description<textarea name="description" rows="2"></textarea></label>
+          <label>Category
+            <select name="category" required>
+              <option value="YOGA">Yoga</option>
+              <option value="CARDIO">Cardio</option>
+              <option value="STRENGTH">Strength</option>
+              <option value="HIIT">HIIT</option>
+              <option value="PILATES">Pilates</option>
+              <option value="SPIN">Spin</option>
+              <option value="ZUMBA">Zumba</option>
+            </select>
+          </label>
+          <label>Trainer<input type="text" name="trainerName" required /></label>
+          <label>Schedule<input type="datetime-local" name="scheduleTime" required /></label>
+          <label>Duration (minutes)<input type="number" name="durationMinutes" min="1" value="60" required /></label>
+          <label>Capacity<input type="number" name="capacity" min="1" value="20" required /></label>
+          <label>Location<input type="text" name="location" /></label>
+          <button type="submit">Add class</button>
+        </form>
+
+        <div class="card list-card">
+          <div class="list-head">
+            <h2>Classes</h2>
+            <button class="ghost" id="refreshClasses">Refresh</button>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Class</th><th>Category</th><th>Trainer</th><th>Schedule</th><th>Capacity</th><th></th></tr>
+            </thead>
+            <tbody id="classesBody"><tr><td colspan="6" class="empty">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKINGS -->
+    <section class="panel" id="panel-bookings">
+      <div class="panel-grid">
+        <form id="bookingForm" class="card form-card">
+          <h2>Book a class</h2>
+          <label>Member
+            <select name="memberId" id="bookingMemberSelect" required>
+              <option value="">Loading members…</option>
+            </select>
+          </label>
+          <label>Class
+            <select name="classId" id="bookingClassSelect" required>
+              <option value="">Loading classes…</option>
+            </select>
+          </label>
+          <button type="submit">Book</button>
+          <p class="hint">Booking calls member-service and class-service through the API Gateway to confirm both exist before saving.</p>
+        </form>
+
+        <div class="card list-card">
+          <div class="list-head">
+            <h2>Bookings</h2>
+            <button class="ghost" id="refreshBookings">Refresh</button>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Member</th><th>Class</th><th>Schedule</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody id="bookingsBody"><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Talking to API Gateway at <code id="gatewayUrl"></code> — routes through Eureka to member-service, class-service and booking-service.
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
